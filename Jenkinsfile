@@ -30,7 +30,7 @@ pipeline {
             set -e
             oc logout || true
             oc login --token="$OCP_TOKEN" --server="$OCP_SERVER" --insecure-skip-tls-verify=true
-            oc project '"$OCP_NAMESPACE"'
+            oc project "$OCP_NAMESPACE"
             oc whoami
           '''
         }
