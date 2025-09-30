@@ -1,17 +1,16 @@
 # Runtime NGINX sobre UBI9 (no S2I)
 FROM registry.access.redhat.com/ubi9/nginx-120
 
-# Tu sitio queda en /opt/app-root/src
+# Copiamos el sitio/app
 COPY . /opt/app-root/src
 
-# Config explícita para puerto 8080 y /healthz
+# Config explícita (puerto 8080 + /healthz)
 COPY openshift/nginx/nginx-default.conf /etc/nginx/conf.d/default.conf
 
-# Permisos para ejecutar con UID arbitrario (SCC restricted)
-RUN chgrp -R 0 /etc/nginx /var/log/nginx /var/cache/nginx /opt/app-root/src \
- && chmod -R g=u /etc/nginx /var/log/nginx /var/cache/nginx /opt/app-root/src
+# No intentes chgrp/chown sobre /etc; en build rootless falla.
+# Para OCP no necesitamos escribir en /etc ni en /opt/app-root/src.
+# Los logs van a stdout/stderr y NGINX ya está preparado para UID arbitrario.
 
 EXPOSE 8080
 USER 1001
-# Arranca NGINX en primer plano (evita el "usage" de la imagen S2I)
 CMD ["nginx", "-g", "daemon off;"]
