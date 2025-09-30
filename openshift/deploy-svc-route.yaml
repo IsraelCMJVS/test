@@ -9,7 +9,7 @@ metadata:
       [{"from":{"kind":"ImageStreamTag","name":"demo-app:latest","namespace":"demo-cicd"},
         "fieldPath":"spec.template.spec.containers[0].image"}]
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels: { app: demo-app }
   template:
@@ -36,7 +36,7 @@ spec:
   selector: { app: demo-app }
   ports:
     - name: http
-      port: 80
+      port: 8080
       targetPort: 8080
 ---
 apiVersion: route.openshift.io/v1
