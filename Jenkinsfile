@@ -7,10 +7,9 @@ pipeline {
     IMAGE_TAG     = 'latest'                        // usamos latest para gatillar el trigger
   }
   options {
-  timestamps()
-  buildDiscarder(logRotator(numToKeepStr: '20'))
-  // Usa el wrapper directo del plugin en vez de la opción 'ansiColor'
-  wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm'])
+    timestamps()
+    ansiColor('xterm')
+    buildDiscarder(logRotator(numToKeepStr: '20'))
   }
   stages {
 
