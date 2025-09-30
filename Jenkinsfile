@@ -25,7 +25,7 @@ pipeline {
 
     stage('Login OpenShift') {
       steps {
-        withCredentials([string(credentialsId: 'ocp-token-demo', variable: 'OCP_TOKEN')]) {
+        withCredentials([string(credentialsId: 'ocp-jenkins-prod', variable: 'OCP_TOKEN')]) {
           sh '''
             set -e
             oc logout || true
