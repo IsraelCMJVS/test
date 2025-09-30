@@ -1,0 +1,4 @@
+.git
+.gitignore
+README.md
+# Dejar "openshift/" porque contiene nginx-default.conf
